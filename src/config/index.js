@@ -22,4 +22,5 @@ module.exports = {
     password: process.env.DB_PASSWORD,
     name: process.env.DB_NAME,
   },
+  jwtSecret: process.env.JWT_SECRET,
 };

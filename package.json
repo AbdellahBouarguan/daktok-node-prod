@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/AbdellahBouarguan/daktok-node-prod/issues"
   },
-  "homepage": "https://github.com/AbdellahBouarguan/daktok-node-prod#readme"
+  "homepage": "https://github.com/AbdellahBouarguan/daktok-node-prod#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
 }

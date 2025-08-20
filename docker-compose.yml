@@ -1,0 +1,26 @@
+# Defines the version of the Docker Compose file format
+version: '3.8'
+
+# 'services' is where we define the containers we want to run
+services:
+  # We're naming our database service 'db'
+  db:
+    # Specifies the official PostgreSQL version 14 image from Docker Hub
+    image: postgres:14-alpine
+    # Ensures the container restarts automatically if it crashes
+    restart: always
+    # Sets environment variables inside the container
+    environment:
+      - POSTGRES_USER=daktok_user
+      - POSTGRES_PASSWORD=daktok_password
+      - POSTGRES_DB=daktok_db
+    # Maps port 5432 on your local machine to port 5432 inside the container
+    ports:
+      - '5431:5432'
+    # Persists database data on your local machine so it's not lost when the container stops
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+# Defines the named volume used above
+volumes:
+  postgres_data:

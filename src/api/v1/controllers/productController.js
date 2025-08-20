@@ -1,9 +1,15 @@
 // src/api/v1/controllers/productController.js
+const Product = require('../../../models/Product');
+
 exports.getProducts = async (req, res, next) => {
-  // In the future, this will fetch from the database.
-  const products = [
-    { id: 1, name: 'Cute Marvel iPhone 14 Case', price: 12.99 },
-    { id: 2, name: 'Simple Test Product', price: 9.99 },
-  ];
-  res.status(200).json(products);
+  try {
+    // Call the data access layer to get products
+    const products = await Product.findAll();
+    // Send the database results as a JSON response
+    res.status(200).json(products);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    // Pass the error to the next middleware. This is key for centralized error handling.
+    next(error);
+  }
 };

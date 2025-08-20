@@ -2,6 +2,8 @@
 const express = require('express');
 const path = require('path');
 const productRoutes = require('../api/v1/routes/products');
+const errorHandler = require('../api/v1/middlewares/errorHandler'); // Import the handler
+
 
 module.exports = (app) => {
   // Middleware to parse JSON bodies
@@ -25,4 +27,5 @@ module.exports = (app) => {
   });
 
   // We will add more routes and error handling middleware here
+  app.use(errorHandler);
 };

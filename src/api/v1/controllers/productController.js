@@ -1,15 +1,13 @@
 // src/api/v1/controllers/productController.js
-const Product = require('../../../models/Product');
+const ProductService = require('../../../services/productService'); // Updated import
 
 exports.getProducts = async (req, res, next) => {
   try {
-    // Call the data access layer to get products
-    const products = await Product.findAll();
-    // Send the database results as a JSON response
+    // The controller's job is to call the service and send the response.
+    const products = await ProductService.getProducts();
     res.status(200).json(products);
   } catch (error) {
-    console.error('Error fetching products:', error);
-    // Pass the error to the next middleware. This is key for centralized error handling.
+    // The controller doesn't handle the error, it just passes it on.
     next(error);
   }
 };

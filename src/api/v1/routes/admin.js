@@ -21,4 +21,8 @@ router.delete('/products/:id', adminController.deleteProduct);
 router.get('/orders', adminController.getOrders);
 router.post('/orders/:id/status', adminController.updateOrderStatus);
 
+// Analytics Route
+router.get('/analytics', adminController.getAnalytics);
+
+
 module.exports = router;

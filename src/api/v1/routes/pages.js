@@ -10,8 +10,7 @@ router.get('/login', (req, res) => res.render('login'));
 
 // Admin pages (protected)
 router.get('/admin', authMiddleware, (req, res) => res.render('admin'));
-// We will create the analytics page later
-// router.get('/admin/analytics', authMiddleware, (req, res) => res.render('admin/analytics'));
+router.get('/admin/analytics', authMiddleware, (req, res) => res.render('admin/analytics'));
 
 // Logout
 router.get('/logout', (req, res) => {

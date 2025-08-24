@@ -8,6 +8,8 @@ const adminRoutes = require('../api/v1/routes/admin'); // Import admin routes
 const publicApiRoutes = require('../api/v1/routes/public'); // Import public API routes
 const pageRoutes = require('../api/v1/routes/pages'); // Import pages routes
 
+const visitorMiddleware = require('../api/v1/middlewares/visitorMiddleware'); // Import the new middleware
+
 
 const errorHandler = require('../api/v1/middlewares/errorHandler'); // Import the handler
 
@@ -25,7 +27,9 @@ module.exports = (app) => {
   app.set('view engine', 'ejs');
   app.set('views', path.join(__dirname, '../../views'));
 
-   app.use(cookieParser()); // Use the cookie-parser middleware
+  app.use(cookieParser()); // Use the cookie-parser middleware
+
+  app.use(visitorMiddleware);
 
   // API Routes
   app.use('/api/v1/public', publicApiRoutes);

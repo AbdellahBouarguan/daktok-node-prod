@@ -3,6 +3,8 @@
 const ProductService = require('../../../services/productService');
 const OrderService = require('../../../services/orderService');
 
+const AnalyticsService = require('../../../services/analyticsService');
+
 exports.getDashboard = (req, res) => {
   // Thanks to the middleware, we can access the authenticated user's info
   const user = req.user;
@@ -58,6 +60,15 @@ exports.updateOrderStatus = async (req, res, next) => {
     const { status } = req.body;
     await OrderService.updateOrderStatus(id, status);
     res.status(200).json({ success: true, message: 'Order status updated' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.getAnalytics = async (req, res, next) => {
+  try {
+    const analyticsData = await AnalyticsService.getVisitorAnalytics();
+    res.status(200).json({ success: true, data: analyticsData });
   } catch (error) {
     next(error);
   }

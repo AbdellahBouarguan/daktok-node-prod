@@ -84,19 +84,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial Load
   (async () => {
+    
     try {
       const response = await fetch('/api/v1/products');
       products = await response.json();
       productGrid.innerHTML = products.map(p => `
-        <div class="bg-white rounded-xl shadow hover:shadow-lg overflow-hidden transition">
-          <img src="${p.image_url}" alt="${p.name}" class="w-full h-48 object-cover">
-          <div class="p-4">
-            <h3 class="font-semibold text-lg">${p.name}</h3>
-            <p class="text-blue-600 font-bold mt-2">$${p.price.toFixed(2)}</p>
-            <button data-id="${p.id}" class="mt-3 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Add to Cart</button>
-          </div>
-        </div>
-      `).join('');
+  <div class="product-card">
+    <img src="${p.image_url}" alt="${p.name}">
+    <div class="product-card-body">
+      <h3>${p.name}</h3>
+      <p>$${p.price.toFixed(2)}</p>
+      <button data-id="${p.id}" class="btn btn-green">Add to Cart</button>
+    </div>
+  </div>
+`).join('');
     } catch (error) {
       console.error(error);
       productGrid.innerHTML = '<p class="text-red-500">Could not load products.</p>';

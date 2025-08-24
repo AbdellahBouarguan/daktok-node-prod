@@ -4,87 +4,61 @@
     <meta charset="UTF-8" />
     <title>Daktok Store</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="/css/style.css" rel="stylesheet" />
   </head>
-  <body class="bg-gray-50 font-sans">
-    <header class="bg-white shadow sticky top-0 z-10">
-      <div class="max-w-6xl mx-auto flex items-center justify-between p-4">
-        <h1 class="text-2xl font-bold text-gray-800">Daktok Store</h1>
-        <nav>
-          <a href="/login" class="text-gray-600 hover:text-blue-600 px-3"
-            >Admin</a
-          >
-        </nav>
+  <body>
+    <header class="header">
+      <div class="container header-content">
+        <h1>Daktok Store</h1>
+        <nav><a href="/login">Admin</a></nav>
       </div>
     </header>
 
-    <main class="max-w-6xl mx-auto p-6">
+    <main class="container">
       <section id="products">
-        <h1 class="text-3xl font-bold mb-6 text-center text-gray-800">
-          🛒 Our Products
-        </h1>
-        <div
-          id="productGrid"
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-        ></div>
+        <h2>🛒 Our Products</h2>
+        <div id="productGrid" class="product-grid"></div>
       </section>
 
-      <section id="cart" class="mt-10 p-6 bg-white shadow rounded-lg">
-        <h2 class="text-2xl font-bold mb-4">🧺 Your Cart</h2>
-        <ul id="cartItems" class="mb-4 text-gray-700 space-y-2"></ul>
-        <p class="font-bold text-lg">
-          Total: <span id="cartTotal">$0.00</span>
+      <section id="cart" class="cart-section">
+        <h2>🧺 Your Cart</h2>
+        <ul id="cartItems"></ul>
+        <p>
+          <strong>Total: <span id="cartTotal">$0.00</span></strong>
         </p>
-        <button
-          id="checkoutBtn"
-          class="mt-4 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
-        >
+        <button id="checkoutBtn" class="btn btn-primary" disabled>
           Checkout
         </button>
       </section>
 
-      <form
-        id="checkoutForm"
-        class="max-w-2xl mx-auto mt-8 bg-white p-6 shadow rounded-lg space-y-4 hidden"
-      >
-        <h2 class="text-xl font-bold mb-2">📦 Shipping Information</h2>
+      <form id="checkoutForm" class="checkout-form hidden">
+        <h2>📦 Shipping Information</h2>
         <input
           required
           name="name"
           placeholder="Full Name"
-          class="p-3 border w-full rounded-lg"
+          class="form-input"
         />
         <input
           required
           name="email"
           type="email"
           placeholder="Email Address"
-          class="p-3 border w-full rounded-lg"
+          class="form-input"
         />
-        <button
-          type="submit"
-          class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 w-full"
-        >
-          Submit Order
-        </button>
+        <button type="submit" class="btn btn-green">Submit Order</button>
       </form>
     </main>
 
-    <div
-      id="modal"
-      class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden"
-    >
-      <div class="bg-white rounded-lg p-6 max-w-sm w-full text-center">
-        <p id="modalMessage" class="mb-4"></p>
-        <button
-          id="modalClose"
-          class="bg-blue-600 text-white px-4 py-2 rounded"
-        >
-          OK
-        </button>
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <p id="modalMessage"></p>
+        <button id="modalClose" class="btn btn-primary">OK</button>
       </div>
     </div>
 
     <script src="/js/main.js"></script>
+    <%- include('partials/theme-switcher') %>
+    <script src="/js/theme.js"></script>
   </body>
 </html>

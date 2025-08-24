@@ -2,6 +2,8 @@
 const express = require('express');
 const adminController = require('../controllers/adminController');
 const authMiddleware = require('../middlewares/authMiddleware');
+const { validateProduct } = require('../middlewares/validationMiddleware');
+
 
 const router = express.Router();
 
@@ -10,5 +12,12 @@ const router = express.Router();
 router.get('/dashboard', authMiddleware, adminController.getDashboard);
 
 // You can add more protected admin routes here...
+// Product Management Routes
+router.post('/products', validateProduct, adminController.addProduct);
+router.delete('/products/:id', adminController.deleteProduct);
+
+// Order Management Routes
+router.get('/orders', adminController.getOrders);
+router.post('/orders/:id/status', adminController.updateOrderStatus);
 
 module.exports = router;

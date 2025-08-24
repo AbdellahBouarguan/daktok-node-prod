@@ -22,4 +22,19 @@ ProductService.getProducts = async () => {
   }
 };
 
+ProductService.addProduct = async (productData) => {
+  // Here you could add logic like checking for duplicate product names, etc.
+  const newProduct = await Product.create(productData);
+  return newProduct;
+};
+
+ProductService.deleteProduct = async (productId) => {
+  // Here you could add logic to check if the product is in any open orders before deleting.
+  const deletedProduct = await Product.deleteById(productId);
+  if (!deletedProduct) {
+    throw new Error('Product not found');
+  }
+  return deletedProduct;
+};
+
 module.exports = ProductService;

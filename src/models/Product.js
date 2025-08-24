@@ -23,6 +23,11 @@ Product.create = async (productData) => {
   return rows[0];
 };
 
+Product.updateStock = async (productId, quantity, client) => {
+  const text = 'UPDATE product SET stock = stock - $1 WHERE id = $2';
+  await client.query(text, [quantity, productId]);
+};
+
 Product.deleteById = async (id) => {
   const text = 'DELETE FROM product WHERE id = $1 RETURNING *';
   const { rows } = await db.query(text, [id]);

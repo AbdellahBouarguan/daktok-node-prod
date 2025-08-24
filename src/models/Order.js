@@ -16,6 +16,26 @@ Order.findAll = async () => {
   return rows;
 };
 
+Order.create = async (orderData, client) => {
+  // The 'client' is a connection from a transaction
+  const { customer, items, total } = orderData;
+  const orderQuery = `
+    INSERT INTO "order" (customer_name, customer_email, total, status)
+    VALUES ($1, $2, $3, 'paid') RETURNING id;
+  `;
+  const orderResult = await client.query(orderQuery, [customer.name, customer.email, total]);
+  const newOrderId = orderResult.rows[0].id;
+
+  for (const item of items) {
+    const itemQuery = `
+      INSERT INTO order_item (order_id, product_name, quantity, price)
+      VALUES ($1, $2, $3, $4);
+    `;
+    await client.query(itemQuery, [newOrderId, item.name, item.qty, item.price]);
+  }
+  return newOrderId;
+};
+
 Order.updateStatus = async (orderId, status) => {
   const text = 'UPDATE "order" SET status = $1 WHERE id = $2 RETURNING *';
   const { rows } = await db.query(text, [status, orderId]);

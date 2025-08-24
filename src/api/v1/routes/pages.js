@@ -5,7 +5,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
 const router = express.Router();
 
 // Public pages
-router.get('/', (req, res) => res.render('index')); // We will create index.ejs later
+router.get('/', (req, res) => res.render('index')); 
 router.get('/login', (req, res) => res.render('login'));
 
 // Admin pages (protected)

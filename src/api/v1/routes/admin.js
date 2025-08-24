@@ -10,6 +10,7 @@ const router = express.Router();
 // Apply the authentication middleware to this route.
 // Only requests with a valid JWT will be able to access it.
 router.get('/dashboard', authMiddleware, adminController.getDashboard);
+router.get('/products', adminController.getProductsForAdmin);
 
 // You can add more protected admin routes here...
 // Product Management Routes

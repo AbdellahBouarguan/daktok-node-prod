@@ -22,6 +22,10 @@ ProductService.getProducts = async () => {
   }
 };
 
+ProductService.getAllProductsForAdmin = async () => {
+  return await Product.findAllAdmin();
+};
+
 ProductService.addProduct = async (productData) => {
   // Here you could add logic like checking for duplicate product names, etc.
   const newProduct = await Product.create(productData);

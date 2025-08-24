@@ -14,6 +14,15 @@ exports.getDashboard = (req, res) => {
   });
 };
 
+exports.getProductsForAdmin = async (req, res, next) => {
+  try {
+    const products = await ProductService.getAllProductsForAdmin();
+    res.status(200).json({ success: true, products });
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.addProduct = async (req, res, next) => {
   try {
     const newProduct = await ProductService.addProduct(req.body);

@@ -10,6 +10,10 @@ Product.findAll = async () => {
   return rows;
 };
 
+Product.findAllAdmin = async () => {
+  const { rows } = await db.query('SELECT * FROM product ORDER BY id DESC', []);
+  return rows;
+};
 
 Product.create = async (productData) => {
   const { name, image_url, price, stock } = productData;

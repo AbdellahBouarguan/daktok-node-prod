@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser'); // Import cookie-parser
 const productRoutes = require('../api/v1/routes/products');
 const authRoutes = require('../api/v1/routes/auth'); // Import auth routes
 const adminRoutes = require('../api/v1/routes/admin'); // Import admin routes
+const pageRoutes = require('../api/v1/routes/pages'); // Import pages routes
 
 
 const errorHandler = require('../api/v1/middlewares/errorHandler'); // Import the handler
@@ -29,6 +30,10 @@ module.exports = (app) => {
   app.use('/api/v1', productRoutes);
   app.use('/api/v1/auth', authRoutes);
   app.use('/api/v1/admin', adminRoutes);
+
+
+  // Page-serving Routes - must be after API routes
+  app.use('/', pageRoutes);
 
   // Simple status check endpoint
   app.get('/status', (req, res) => {

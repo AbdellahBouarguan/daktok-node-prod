@@ -20,6 +20,8 @@ router.delete('/products/:id', adminController.deleteProduct);
 // Order Management Routes
 router.get('/orders', adminController.getOrders);
 router.post('/orders/:id/status', adminController.updateOrderStatus);
+router.get('/orders/:id/invoice', adminController.generateInvoice);
+
 
 // Analytics Route
 router.get('/analytics', adminController.getAnalytics);

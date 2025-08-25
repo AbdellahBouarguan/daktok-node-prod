@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Complete Your Payment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/css/style.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main class="container">
+      <% if (error) { %>
+      <div class="cart-section">
+        <h2>❌ Error</h2>
+        <p><%= error %></p>
+        <a href="/" class="btn btn-primary">Return to Store</a>
+      </div>
+      <% } else { %>
+      <div class="cart-section">
+        <h2>Invoice for Order #<%= order.id %></h2>
+        <ul id="cartItems">
+          <% order.items.forEach(item => { %>
+          <li><%= item.product_name %> x <%= item.quantity %></li>
+          <% }) %>
+        </ul>
+        <p>
+          <strong
+            >Total Due:
+            <span id="cartTotal">$<%= order.total.toFixed(2) %></span></strong
+          >
+        </p>
+      </div>
+
+      <div id="paymentOptions" class="cart-section">
+        <h2>💳 Choose Payment Method</h2>
+        <div style="display: flex; flex-direction: column; gap: 1rem">
+          <p>Stripe / Crypto payment options coming soon!</p>
+        </div>
+      </div>
+      <% } %>
+    </main>
+
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <p id="modalMessage"></p>
+        <a href="/" id="modalClose" class="btn btn-primary">Return to Store</a>
+      </div>
+    </div>
+    <script src="/js/payment.js"></script>
+  </body>
+</html>

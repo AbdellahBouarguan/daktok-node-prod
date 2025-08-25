@@ -1,6 +1,7 @@
 // src/api/v1/controllers/adminController.js
 
 const ProductService = require('../../../services/productService');
+const PDFService = require('../../../services/pdfService'); // Import PDF Service
 const OrderService = require('../../../services/orderService');
 
 const AnalyticsService = require('../../../services/analyticsService');
@@ -60,6 +61,24 @@ exports.updateOrderStatus = async (req, res, next) => {
     const { status } = req.body;
     await OrderService.updateOrderStatus(id, status);
     res.status(200).json({ success: true, message: 'Order status updated' });
+  } catch (error) {
+    next(error);
+  }
+};
+
+exports.generateInvoice = async (req, res, next) => {
+  try {
+    // We need a way to get a single order's details
+    const order = await OrderService.getOrderById(req.params.id);
+    if (!order) {
+      return res.status(404).json({ message: 'Order not found' });
+    }
+
+    const pdfBuffer = await PDFService.generateInvoice(order);
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=invoice-${order.id}.pdf`);
+    res.send(pdfBuffer);
   } catch (error) {
     next(error);
   }

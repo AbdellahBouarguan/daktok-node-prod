@@ -52,16 +52,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const renderOrders = (orders) => {
+ const renderOrders = (orders) => {
+    // Make sure your <table> in admin.ejs has 6 columns in its header now
+    // Example: <thead><tr>...<th class="border-b p-2">Actions</th></tr></thead>
     ordersTableBody.innerHTML = '';
     if (orders.length === 0) {
-      ordersTableBody.innerHTML = `<tr><td colspan="5" class="p-2">No orders found.</td></tr>`;
+      // Update colspan to 6 to match the new number of columns
+      ordersTableBody.innerHTML = `<tr><td colspan="6" class="p-2">No orders found.</td></tr>`;
       return;
     }
     const statusOptions = ['pending', 'paid', 'shipped', 'cancelled'];
     orders.forEach(order => {
       const row = document.createElement('tr');
-      const itemsHtml = order.items && order.items[0] // Check if items is not null
+      const itemsHtml = order.items && order.items[0]
         ? `<ul>${order.items.map(item => `<li>${item.product_name} x ${item.quantity}</li>`).join('')}</ul>`
         : 'No items';
       const selectOptions = statusOptions.map(s => `<option value="${s}" ${order.status === s ? 'selected' : ''}>${s}</option>`).join('');
@@ -75,6 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <select class="border rounded px-2 py-1 update-status-select" data-id="${order.id}">
             ${selectOptions}
           </select>
+        </td>
+        <td class="p-2 border-b">
+          <a href="/api/v1/admin/orders/${order.id}/invoice" class="text-blue-500 hover:underline">Get Invoice</a>
         </td>
       `;
       ordersTableBody.appendChild(row);

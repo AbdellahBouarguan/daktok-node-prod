@@ -32,7 +32,7 @@
       </section>
 
       <form id="checkoutForm" class="checkout-form hidden">
-        <h2>📦 Shipping Information</h2>
+        <h2>📦 Customer & Shipping Information</h2>
         <input
           required
           name="name"
@@ -46,7 +46,19 @@
           placeholder="Email Address"
           class="form-input"
         />
-        <button type="submit" class="btn btn-green">Submit Order</button>
+        <input
+          required
+          name="phone"
+          placeholder="Phone Number (for WhatsApp)"
+          class="form-input"
+        />
+        <input
+          required
+          name="address"
+          placeholder="Shipping Address"
+          class="form-input"
+        />
+        <button type="submit" class="btn btn-green">Request Invoice</button>
       </form>
     </main>
 

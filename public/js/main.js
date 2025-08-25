@@ -70,12 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const result = await response.json();
       if (result.success) {
-        showModal('✅ Order submitted successfully!');
-        cart = [];
-        updateCart();
-        checkoutForm.reset();
-        checkoutForm.classList.add('hidden');
-      }
+  // Change the success message
+  showModal('✅ Order request received! You will receive an invoice via Email or WhatsApp shortly.');
+  cart = [];
+  updateCart();
+  checkoutForm.reset();
+  checkoutForm.classList.add('hidden');
+}
     } catch (error) {
       console.error(error);
       showModal('❌ Error submitting order.');

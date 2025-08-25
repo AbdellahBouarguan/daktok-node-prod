@@ -16,12 +16,38 @@ Order.findAll = async () => {
   return rows;
 };
 
+Order.findById = async (id) => {
+  // Re-use the findByUuid query logic but with ID
+  const text = `
+    SELECT o.id, o.customer_name, o.customer_email, o.payment_uuid, o.total,
+           json_agg(json_build_object('product_name', oi.product_name, 'quantity', oi.quantity, 'price', oi.price)) as items
+    FROM "order" o
+    LEFT JOIN order_item oi ON o.id = oi.order_id
+    WHERE o.id = $1 GROUP BY o.id;
+  `;
+  const { rows } = await db.query(text, [id]);
+  return rows[0];
+};
+
+Order.findByUuid = async (uuid) => {
+  const text = `
+    SELECT o.id, o.status, o.total,
+           json_agg(json_build_object('product_name', oi.product_name, 'quantity', oi.quantity)) as items
+    FROM "order" o
+    LEFT JOIN order_item oi ON o.id = oi.order_id
+    WHERE o.payment_uuid = $1
+    GROUP BY o.id;
+  `;
+  const { rows } = await db.query(text, [uuid]);
+  return rows[0]; // Returns the single order or undefined
+};
+
 Order.create = async (orderData, client) => {
-  // The 'client' is a connection from a transaction
   const { customer, items, total } = orderData;
+  // Note: Status is now 'pending' by default from the database schema
   const orderQuery = `
-    INSERT INTO "order" (customer_name, customer_email, total, status)
-    VALUES ($1, $2, $3, 'paid') RETURNING id;
+    INSERT INTO "order" (customer_name, customer_email, total)
+    VALUES ($1, $2, $3) RETURNING id;
   `;
   const orderResult = await client.query(orderQuery, [customer.name, customer.email, total]);
   const newOrderId = orderResult.rows[0].id;

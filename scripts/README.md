@@ -14,3 +14,6 @@ These scripts can be run from the command line using Node.js:
 ```bash
 node scripts/seed-admin.js
 node scripts/seed-orders.js
+
+Note: These scripts should be run after the database has been set up and the application has been configured.
+

@@ -1,8 +1,3 @@
-***
-
-### `src/README.md`
-
-```md
 # Source Folder
 
 This is the main folder for the application's source code. It contains all the server-side logic and is organized into subfolders based on functionality.
